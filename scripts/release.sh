@@ -27,9 +27,10 @@ Private unsigned DMG for desk Macs.
 4. Allow Camera access when prompted
 5. Start OBS → Start Virtual Camera
 6. Leave the menu-bar app running (status item \`OBS↕\`)
+7. Menu → **Copy auth token**, paste once in Streamline Card in view
 
 ### Chrome / Streamline
-Card in view probes \`http://127.0.0.1:5199/health\` for \`version\` \`$VERSION\`.
+Card in view probes \`http://127.0.0.1:5199/health\` (Bearer token required) for \`version\` \`$VERSION\`.
 EOF
 )"
 else
