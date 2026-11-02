@@ -18,6 +18,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, CaptureServiceDelegate
   }
 
   func applicationDidFinishLaunching(_ notification: Notification) {
+    _ = AuthToken.current()
     capture = CaptureService(store: store)
     capture.delegate = self
     server = HttpServer(store: store, port: port)
@@ -58,7 +59,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, CaptureServiceDelegate
       menu.addItem(withTitle: "Frame \(snap.width)×\(snap.height)", action: nil, keyEquivalent: "")
     }
     menu.addItem(NSMenuItem.separator())
-    menu.addItem(withTitle: "Health http://127.0.0.1:\(port)/health", action: #selector(openHealth), keyEquivalent: "")
+    menu.addItem(withTitle: "Copy auth token", action: #selector(copyToken), keyEquivalent: "c")
+    menu.addItem(withTitle: "Rotate auth token", action: #selector(rotateToken), keyEquivalent: "")
     menu.addItem(withTitle: "Restart capture", action: #selector(restartCapture), keyEquivalent: "r")
     menu.addItem(NSMenuItem.separator())
     menu.addItem(withTitle: "Quit", action: #selector(quit), keyEquivalent: "q")
@@ -72,10 +74,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, CaptureServiceDelegate
     statusItem?.button?.toolTip = "\(BridgeVersion.appName) v\(BridgeVersion.version)\n\(status)"
   }
 
-  @objc private func openHealth() {
-    if let url = URL(string: "http://127.0.0.1:\(port)/health") {
-      NSWorkspace.shared.open(url)
-    }
+  @objc private func copyToken() {
+    let token = AuthToken.current()
+    NSPasteboard.general.clearContents()
+    NSPasteboard.general.setString(token, forType: .string)
+    rebuildMenu(status: "Auth token copied — paste in Card in view")
+  }
+
+  @objc private func rotateToken() {
+    _ = AuthToken.rotate()
+    copyToken()
   }
 
   @objc private func restartCapture() {

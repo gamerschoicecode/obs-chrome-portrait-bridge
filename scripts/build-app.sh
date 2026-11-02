@@ -24,6 +24,7 @@ swiftc -O \
   -framework CoreMedia \
   -framework CoreVideo \
   -framework Foundation \
+  -framework Security \
   -o "$BIN"
 
 cp "$ROOT/Resources/Info.plist" "$APP/Contents/Info.plist"
