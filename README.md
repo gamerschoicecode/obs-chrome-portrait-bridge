@@ -10,8 +10,8 @@ Chrome’s `getUserMedia` cannot open OBS at the real canvas size ([obs-studio#1
 2. Open the DMG → drag **OBS Chrome Portrait Bridge** into **Applications**.
 3. First launch: **Right-click → Open** (app is ad-hoc signed, not Apple-notarized).
 4. Allow **Camera** when macOS asks.
-5. In OBS: Start Virtual Camera. Prefer Base + Output **1080×1920** (or another portrait size).
-6. Leave the menu-bar item `OBS↕` running.
+5. In OBS **Settings → Video**, set **Base (Canvas)** and **Output (Scaled)** to the same portrait size (e.g. **1080×1920**). If Output is `360×640`, Virtual Camera only publishes that downscale — the bridge cannot invent pixels.
+6. Start Virtual Camera, then leave the menu-bar item `OBS↕` running. The status menu shows the live frame size (should match Output, ideally `1080×1920`).
 
 ## Health API
 
